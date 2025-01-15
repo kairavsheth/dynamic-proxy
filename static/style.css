@@ -1,0 +1,90 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+main {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Form section styles */
+.form-section {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    padding: 10px;
+    flex: 1;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* Button styles */
+.add-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Table section styles */
+.table-section {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f4f4f4;
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}

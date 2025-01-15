@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+        async function fetchMappings() {
+            const response = await fetch('/admin/mappings');
+            const mappings = await response.json();
+            const table = document.getElementById('mappings-table');
+            table.innerHTML = '';
+            mappings.forEach(mapping => {
+                const row = `<tr>
+          <td>${mapping.id}</td>
+          <td>${mapping.url}</td>
+          <td>
+            <button class="delete-btn" onclick="deleteMapping('${mapping.id}')">Delete</button>
+          </td>
+        </tr>`;
+                table.innerHTML += row;
+            });
+        }
+
+        async function addMapping() {
+            const id = document.getElementById('id').value;
+            const url = document.getElementById('url').value;
+            await fetch('/admin/mappings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, url })
+            });
+            fetchMappings();
+        }
+
+        async function deleteMapping(id) {
+            await fetch(`/admin/mappings/${id}`, { method: 'DELETE' });
+            fetchMappings();
+        }
+
+        window.onload = fetchMappings;
+    </script>
+</head>
+<body>
+<header>
+    <h1>Admin Panel</h1>
+</header>
+<main>
+    <section class="form-section">
+        <h2>Add New Mapping</h2>
+        <div class="form-group">
+            <input type="text" id="id" placeholder="ID">
+            <input type="text" id="url" placeholder="URL">
+            <button class="add-btn" onclick="addMapping()">Add</button>
+        </div>
+    </section>
+    <section class="table-section">
+        <h2>Existing Mappings</h2>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>URL</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="mappings-table"></tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>
