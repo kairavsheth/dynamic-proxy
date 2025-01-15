@@ -170,8 +170,14 @@ func proxyRequest(c *gin.Context) {
 	var mapping ProxyMapping
 	doc.DataTo(&mapping)
 
-	// Forward the request
+	// Construct the backend URL with query parameters
+	queryString := c.Request.URL.RawQuery
 	backendURL := fmt.Sprintf("%s%s", mapping.URL, path)
+	if queryString != "" {
+		backendURL = fmt.Sprintf("%s?%s", backendURL, queryString)
+	}
+
+	// Create a new HTTP request to forward
 	req, err := http.NewRequest(c.Request.Method, backendURL, c.Request.Body)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create request"})
@@ -185,6 +191,7 @@ func proxyRequest(c *gin.Context) {
 		}
 	}
 
+	// Forward the request
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
